@@ -1,4 +1,4 @@
-from prep import num_encoder_tokens, num_decoder_tokens
+from prep import num_encoder_tokens, num_decoder_tokens, decoder_target_data, encoder_input_data, decoder_input_data, decoder_target_data
 
 from tensorflow import keras
 # Add Dense to the imported layers
@@ -11,15 +11,25 @@ encoder_lstm = LSTM(256, return_state=True)
 encoder_outputs, state_hidden, state_cell = encoder_lstm(encoder_inputs)
 encoder_states = [state_hidden, state_cell]
 
-# The decoder input and LSTM layers:
+# Decoder training setup:
 decoder_inputs = Input(shape=(None, num_decoder_tokens))
 decoder_lstm = LSTM(256, return_sequences=True, return_state=True)
-
-# Retrieve the LSTM outputs and states:
 decoder_outputs, decoder_state_hidden, decoder_state_cell = decoder_lstm(decoder_inputs, initial_state=encoder_states)
-
-# Build a final Dense layer:
 decoder_dense = Dense(num_decoder_tokens, activation='softmax')
-
-# Filter outputs through the Dense layer:
 decoder_outputs = decoder_dense(decoder_outputs)
+
+# Building the training model:
+training_model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
+
+training_model.summary()
+
+# Compile the model:
+training_model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Choose the batch size
+# and number of epochs:
+batch_size = 50
+epochs = 50
+
+# Train the model:
+training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size=batch_size, epochs=epochs, validation_split=0.2)
