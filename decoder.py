@@ -26,8 +26,7 @@ training_model.summary()
 # Compile the model:
 training_model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# Choose the batch size
-# and number of epochs:
+# Choose the batch size and number of epochs:
 batch_size = 50
 epochs = 50
 

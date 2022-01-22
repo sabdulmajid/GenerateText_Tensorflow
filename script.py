@@ -29,7 +29,6 @@ for line, (input_doc, target_doc) in enumerate(zip(input_docs, target_docs)):
 
     print("Encoder input timestep & token:", timestep, token)
     # Assign 1. for the current line, timestep, & word
-    # in encoder_input_data:
     encoder_input_data[line, timestep, input_features_dict[token]] = 1.
 
   for timestep, token in enumerate(target_doc.split()):
@@ -41,8 +40,6 @@ for line, (input_doc, target_doc) in enumerate(zip(input_docs, target_docs)):
     decoder_input_data[line, timestep, target_features_dict[token]] = 1.
     if timestep > 0:
       # decoder_target_data will be ahead by one timestep
-      # and will not include the start token.
       print("Decoder target timestep:", timestep)
       # Assign 1. for the current line, timestep, & word
-    # in decoder_target_data:
       decoder_target_data[line, timestep - 1, target_features_dict[token]] = 1.

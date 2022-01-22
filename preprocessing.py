@@ -25,8 +25,7 @@ for line in lines:
   target_doc = '<START> ' + target_doc + ' <END>'
   target_docs.append(target_doc)
   
-  # Now we split up each sentence into words
-  # and add each unique word to our vocabulary set
+  # Now we split up each sentence into words and add each unique word to our vocabulary set
   for token in re.findall(r"[\w']+|[^\s\w]", input_doc):
     print(token)
     # Add your code here:

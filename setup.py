@@ -30,10 +30,7 @@ def decode_sequence(test_input):
   decoded_sentence = ''
   
   stop_condition = False
-  while not stop_condition:
-    # Run the decoder model to get possible 
-    # output tokens (with probabilities) & states
-    
+  while not stop_condition:  
 
     # Choose token with highest probability
     sampled_token = ""
@@ -43,10 +40,6 @@ def decode_sequence(test_input):
     if (sampled_token == '<END>' or len(decoded_sentence) > max_decoder_seq_length):
       stop_condition = True
 
-    # Update the target sequence (of length 1).
-    
-
-    # Update states
     
 
   return decoded_sentence
